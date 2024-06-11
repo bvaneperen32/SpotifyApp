@@ -1,53 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SpotifyAPI.Web;
+using SpotifyApp.Services;
 
 namespace SpotifyApp.Controllers
 {
     public class SpotifyController : Controller
     {
+        private SpotifyService _spotifyService;
 
-        [Route("login")]
-        public async Task<IActionResult> Login()
+        public SpotifyController(IHttpContextAccessor httpContextAccessor)
         {
-            var (verifier, challenge) = PKCEUtil.GenerateCodes(); 
-            TempData["verifier"] = verifier;    
-
-            var loginRequest = new LoginRequest(
-              new Uri("https://localhost:7118/callback"),
-              "a97145a9397d4a96b7e681552779c5fb",
-              LoginRequest.ResponseType.Code
-            )
-            {
-                CodeChallengeMethod = "S256",
-                CodeChallenge = challenge,
-                Scope = new[] { Scopes.PlaylistReadPrivate, Scopes.PlaylistReadCollaborative }
-            };
-            var uri = loginRequest.ToUri();
-
-            return Redirect(uri.ToString());
+            var tokenResponseJson = httpContextAccessor.HttpContext.Session.GetString("Token");
+            var tokenResponse = JsonConvert.DeserializeObject<PKCETokenResponse>(tokenResponseJson);
+            _spotifyService = new SpotifyService(tokenResponse);
         }
 
-        [Route("callback")]
-        public async Task<IActionResult> Callback(string code)
+        public async Task<IActionResult> TopArtists()
         {
-            var codeVerifier = TempData["verifier"] as string;
-
-            var tokenRequest = new PKCETokenRequest(
-                "a97145a9397d4a96b7e681552779c5fb",
-                code,
-                new Uri("https://localhost:7118/callback"),
-                codeVerifier
-            );
-
-            var tokenResponse = await new OAuthClient().RequestToken(tokenRequest);
-
-            var spotify = new SpotifyClient(tokenResponse.AccessToken);
-
-            var currentUser = await spotify.UserProfile.Current();
-            ViewBag.UserName = currentUser.DisplayName;
-
-            return View("Profile"); 
+            var viewModel = await _spotifyService.GetTopArtists();
+            return View(viewModel);
         }
-
     }
 }

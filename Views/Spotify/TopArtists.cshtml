@@ -1,0 +1,15 @@
+﻿@model TopArtistsViewModel
+
+<h1>Top Artists</h1>
+
+@foreach (var artist in Model.Artists)
+{
+    <div>
+        <h2>@artist.Name</h2>
+        <img src="@artist.ImageUrl" alt="@artist.Name">
+        <p>Popularity: @artist.Popularity</p>
+        <p>Genres: @string.Join(", ", artist.Genres)</p>
+        <p>Followers: @artist.Followers</p>
+        <a href="@artist.SpotifyUrl" target="_blank">Listen on Spotify</a>
+    </div>
+}
