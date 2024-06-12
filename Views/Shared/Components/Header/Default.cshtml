@@ -1,0 +1,17 @@
+﻿<header>
+    <nav class="navbar">
+        <div class="navbar-start">
+            <a href="https://www.spotify.com" target="_blank">
+                <img src="~/SpotifyLogo.png" alt="Spotify Logo" style="height: 40px; max-width: 100px; width: auto;" />
+            </a>
+            @if (Context.Session.GetString("Token") != null)
+            {
+                <a class="nav-link" asp-area="" asp-controller="Spotify" asp-action="TopArtists">Top Artists</a>
+            }
+        </div>
+        <div class="navbar-end">
+            <a class="nav-link text-dark navbar-login-btn" asp-area="" asp-controller="Auth" asp-action="Login">Login With Spotify</a>
+        </div>
+    </nav>
+</header>
+
