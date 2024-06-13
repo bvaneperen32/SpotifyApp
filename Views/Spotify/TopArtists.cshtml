@@ -1,5 +1,7 @@
 ﻿@model TopArtistsViewModel
 <div class="top-artists-page">
+    <div class="background"></div>
+    <div class="next-background"></div>
     <h1 class="text-center">Top Artists</h1>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -19,23 +21,15 @@
                 </div>
             }
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <a class="carousel-control-prev" id="prev-icon" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only"></span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+
+        <a class="carousel-control-next" id="next-icon" href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only"></span>
         </a>
         <div style="height: 100px;"></div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(window).on('load', function () {
-            initializeCarouselWithRandomBackgrounds();
-        });
-    </script>
-}
-
