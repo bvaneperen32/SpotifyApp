@@ -9,9 +9,10 @@
             @for (int i = 0; i < Model.Artists.Count; i++)
             {
                 var artist = Model.Artists[i];
-                <div class="carousel-item transition-background @(i == 0 ? "active" : "")">
+                <div class="carousel-item transition-background @(i == 0 ? "active" : "")"
+                     data-colors="@string.Join(",", artist.DominantColors)">
                     <div class="topartists-container text-center">
-                        <h2>@(i + 1). @artist.Name</h2>
+                        <h2 class="header-artist-details">@(i + 1). @artist.Name</h2>
                         <img src="@artist.ImageUrl" alt="@artist.Name">
                         <p class="artist-details">Popularity: @artist.Popularity</p>
                         <p class="artist-details">Genres: @string.Join(", ", artist.Genres)</p>

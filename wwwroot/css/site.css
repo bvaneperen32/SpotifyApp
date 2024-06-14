@@ -175,11 +175,21 @@ body {
     background-color: black;
 }
 
+
+
 .artist-details {
     font-family: Arial, sans-serif;
     font-size: 1.2em;
-    letter-spacing: 0.05em; 
-    color: #333; 
+    letter-spacing: 0.05em;
+    color: white; /* or any default color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.header-artist-details {
+    font-size: 2rem; /* Adjust this value if you want a specific size */
+    letter-spacing: 0.05em;
+    color: white; /* or any default color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -193,7 +203,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(../images/bg1.jpg)
+/*    background-image: url(../images/bg1.jpg)*/
 }
 
 @keyframes fade-in {
@@ -230,3 +240,12 @@ body {
     .carousel-item.active {
         transform: translateX(0);
     }
+
+
+.text-light {
+    color: white;
+}
+
+.text-dark {
+    color: black;
+}

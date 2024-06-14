@@ -8,5 +8,6 @@
         public IList<string> Genres { get; set; }
         public int Followers { get; set; }
         public string SpotifyUrl { get; set; }
+        public List<string> DominantColors { get; set; }
     }
 }

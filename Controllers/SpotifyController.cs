@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SpotifyAPI.Web;
 using SpotifyApp.Services;
+using ColorThiefDotNet; 
 
 namespace SpotifyApp.Controllers
 {
@@ -20,6 +21,14 @@ namespace SpotifyApp.Controllers
         {
             var viewModel = await _spotifyService.GetTopArtists();
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            var currentUser = await _spotifyService.GetCurrentUserProfile();
+            ViewBag.UserName = currentUser.DisplayName;
+           
+            return View(currentUser);
         }
     }
 }

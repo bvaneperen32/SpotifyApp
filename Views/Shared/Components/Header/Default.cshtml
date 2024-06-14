@@ -6,6 +6,7 @@
             </a>
             @if (Context.Session.GetString("Token") != null)
             {
+                <a class="nav-link" asp-area="" asp-controller="Spotify" asp-action="Profile">Profile</a>
                 <a class="nav-link" asp-area="" asp-controller="Spotify" asp-action="TopArtists">Top Artists</a>
             }
         </div>
