@@ -11,8 +11,8 @@ namespace SpotifyApp.Controllers
         [Route("login")]
         public async Task<IActionResult> Login()
         {
-            var (verifier, challenge) = PKCEUtil.GenerateCodes(); 
-            TempData["verifier"] = verifier;    
+            var (verifier, challenge) = PKCEUtil.GenerateCodes();
+            HttpContext.Session.SetString("verifier", verifier);
 
             var loginRequest = new LoginRequest(
               new Uri("https://localhost:7118/callback"),
@@ -32,7 +32,12 @@ namespace SpotifyApp.Controllers
         [Route("callback")]
         public async Task<IActionResult> Callback(string code)
         {
-            var codeVerifier = TempData["verifier"] as string;
+            if (string.IsNullOrEmpty(code) || HttpContext.Session.GetString("Token") != null)
+            {
+                return RedirectToAction("Profile", "Spotify");
+            }
+
+            var codeVerifier = HttpContext.Session.GetString("verifier");
 
             var tokenRequest = new PKCETokenRequest(
                 "a97145a9397d4a96b7e681552779c5fb",
@@ -51,7 +56,7 @@ namespace SpotifyApp.Controllers
             var currentUser = await spotify.UserProfile.Current();
             ViewBag.UserName = currentUser.DisplayName;
 
-            return View("Profile"); 
+            return RedirectToAction("Profile", "Spotify"); 
         }
 
     }

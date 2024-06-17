@@ -42,6 +42,72 @@ namespace SpotifyApp.Services
             };
         }
 
+        public async Task<PlaylistsViewModel> GetPlaylists()
+        {
+            var playlists = await _spotify.Playlists.CurrentUsers();
+
+            var playlistsInfos = playlists.Items.Select(playlist => new Playlist
+            {
+                Name = playlist.Name,
+                ImageUrl = playlist.Images.FirstOrDefault()?.Url,
+                SpotifyUrl = playlist.ExternalUrls["spotify"]
+            }).ToList();
+
+            return new PlaylistsViewModel
+            {
+                Playlists = playlistsInfos
+            };
+        }
+
+        public async Task<RecTracksViewModel> GetRecommendations()
+        {
+            var topTracksRequest = new PersonalizationTopRequest
+            {
+                Limit = 5,
+                TimeRangeParam = PersonalizationTopRequest.TimeRange.ShortTerm
+            };
+
+            var topTracks = await _spotify.Personalization.GetTopTracks(topTracksRequest);
+
+            var trackIds = topTracks.Items.Select(track => track.Id).ToList();
+
+            if (!trackIds.Any())
+            {
+                return new RecTracksViewModel
+                {
+                    RecTracks = new List<RecTrack>()
+                };
+            }
+
+
+            var recommendationsRequest = new RecommendationsRequest
+            {
+                Limit = 20 
+            };
+
+            foreach (var trackId in trackIds.Take(5))
+            {
+                recommendationsRequest.SeedTracks.Add(trackId);
+            }
+
+            var recommendations = await _spotify.Browse.GetRecommendations(recommendationsRequest);
+            var fullTracks = await Task.WhenAll(recommendations.Tracks.Select(async track => await _spotify.Tracks.Get(track.Id)));
+            var recommendedTracks = fullTracks.Select(track => new RecTrack
+            {
+                TrackName = track.Name,
+                ArtistName = track.Artists.FirstOrDefault()?.Name,
+                AlbumName = track.Album.Name,
+                TrackImage = track.Album.Images.FirstOrDefault()?.Url,
+                TrackUrl = track.ExternalUrls["spotify"]
+            }).ToList();
+
+            return new RecTracksViewModel
+            {
+                RecTracks = recommendedTracks
+            };
+
+        }
+
         public async Task<List<string>> GetDominantColors(string imageUrl, int topColors = 3)
         {
             using (var client = new HttpClient())

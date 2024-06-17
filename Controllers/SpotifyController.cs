@@ -2,7 +2,8 @@
 using Newtonsoft.Json;
 using SpotifyAPI.Web;
 using SpotifyApp.Services;
-using ColorThiefDotNet; 
+using ColorThiefDotNet;
+using SpotifyApp.Models;
 
 namespace SpotifyApp.Controllers
 {
@@ -26,9 +27,18 @@ namespace SpotifyApp.Controllers
         public async Task<IActionResult> Profile()
         {
             var currentUser = await _spotifyService.GetCurrentUserProfile();
+            var playlists = await _spotifyService.GetPlaylists();
+            var recTracks = await _spotifyService.GetRecommendations();
+
             ViewBag.UserName = currentUser.DisplayName;
-           
-            return View(currentUser);
+
+            var userProfileViewModel = new UserProfileViewModel
+            {
+                Playlists = playlists,
+                RecTracks = recTracks
+            };
+
+            return View(userProfileViewModel);
         }
     }
 }

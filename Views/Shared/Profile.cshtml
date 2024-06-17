@@ -1,7 +1,47 @@
-﻿@{
+﻿@model UserProfileViewModel
+@{
     ViewData["Title"] = "User Profile";
 }
+<div class="spotify-dark-theme">
 
-<h2>User Profile</h2>
+    <div class="welcome-message">
+        <h2>Welcome, @ViewBag.UserName! Discover music you'll love.</h2>
+        <h3>Your Playlists</h3>
+    </div>
 
-<p>Welcome, @ViewBag.UserName!</p>
+    <div class="playlist-navigation-container">
+        <button class="scroll-arrow left-arrow" onclick="customScrollLeft('playlistScrollContainer')">&#11164;</button><!-- Use HTML entities for arrows -->
+        <div id="playlistScrollContainer" class="scroll-container">
+            @foreach (var playlist in Model.Playlists.Playlists)
+            {
+                <div class="playlist-item">
+                    <a href="@playlist.SpotifyUrl" target="_blank">
+                        <img src="@playlist.ImageUrl" alt="Playlist Cover">
+                    </a>
+                    <a href="@playlist.SpotifyUrl" class="item-text" target="_blank">@playlist.Name</a>
+                </div>
+            }
+        </div>
+        <button class="scroll-arrow right-arrow" onclick="scrollRight('playlistScrollContainer')">&#11166;</button> <!-- Use HTML entities for arrows -->
+    </div>
+
+    <div class="welcome-message">
+        <h3>Recommended Songs</h3>
+    </div>
+
+    <div class="playlist-navigation-container">
+        <button class="scroll-arrow left-arrow" onclick="customScrollLeft('recommendedScrollContainer')">&#11164;</button><!-- Use HTML entities for arrows -->
+        <div id="recommendedScrollContainer" class="scroll-container">
+            @foreach (var recTrack in Model.RecTracks.RecTracks)
+            {
+                <div class="playlist-item">
+                    <a href="@recTrack.TrackUrl" target="_blank">
+                        <img src="@recTrack.TrackImage" alt="Track Cover">
+                    </a>
+                    <a href="@recTrack.TrackUrl" class="item-text" target="_blank">@recTrack.TrackName - @recTrack.ArtistName</a>
+                </div>
+            }
+        </div>
+        <button class="scroll-arrow right-arrow" onclick="scrollRight('recommendedScrollContainer')">&#11166;</button> <!-- Use HTML entities for arrows -->
+    </div>
+</div>

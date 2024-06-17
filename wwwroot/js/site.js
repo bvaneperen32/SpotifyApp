@@ -90,3 +90,17 @@ function slideInPrevSlide() {
         });
     }, 100);  // delay the animation slightly to ensure the previous slide has finished sliding out
 }
+
+
+// Profile JS
+// Update the function to accept a container ID
+function customScrollLeft(containerId) {
+    const container = document.getElementById(containerId);
+    container.scrollBy({ left: -600, behavior: 'smooth' });
+}
+
+// Update the function to accept a container ID
+function scrollRight(containerId) {
+    const container = document.getElementById(containerId);
+    container.scrollBy({ left: 600, behavior: 'smooth' });
+}

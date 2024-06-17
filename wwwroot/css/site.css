@@ -110,19 +110,45 @@ body {
         background-color: rgba(255, 255, 255, 0.1);
     }
 
+.navbar-end {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjust the gap as needed */
+}
+
+    .navbar-end p {
+        margin: 0; /* Removes default margin from <p> */
+        color: white; 
+        display: inline-flex; 
+    }
+
+
 .landing-login-btn {
     display: inline-block;
-    background-color: #1DB954; /* Spotify green */
     color: white;
     border-radius: 20px;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 20px;
-    transition: background-color 0.3s ease;
+    padding: 10px 20px; /* Adjust padding as needed */
+    text-decoration: none; /* Removes underline */
+    font-size: 25px; /* Adjust font size as needed */
+    width: auto; /* Adjust width as needed */
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px;
+    height: auto; /* Adjust height as needed */
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+    transition: all .4s ease-in-out;
+    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+    -webkit-transition: all .8s ease-in-out;
+    -moz-transition: all .8s ease-in-out;
+    -o-transition: all .8s ease-in-out;
 }
 
     .landing-login-btn:hover {
-        background-color: #1ED760; /* Lighter Spotify green */
+        background-position: 100% 0;
+        text-decoration: none; /* Ensures no underline on hover */
     }
 
 .logo {
@@ -248,4 +274,115 @@ body {
 
 .text-dark {
     color: black;
+}
+
+.playlist-navigation-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjusted for spacing */
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    align-items: center;
+    flex-grow: 1; /* Allows the container to fill the space */
+    margin: 0 70px; /* Space for arrows */
+    padding-top: 20px; 
+}
+
+.playlist-item {
+    flex: 0 0 auto;
+    width: 15%; /* Adjust width to show 3-4 items, accounting for margin */
+    margin-right: 40px; /* Space between items */
+    margin-left: 20px; 
+    margin-bottom: 20px; 
+    transition: transform 0.3s ease; 
+    position: relative; 
+}
+
+.playlist-item:hover {
+    transform: scale(1.1); 
+    z-index: 2; 
+}
+
+    .playlist-item img {
+        width: 100%; /* Ensure images fit within their container */
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Remove any inline spacing */
+        border-radius: 10px; /* If you want rounded corners */
+        transition: transform 0.3s ease; /* Smooth transition for scaling */
+    }
+
+/* Style for navigation arrows */
+.scroll-arrow {
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white; 
+    background-color: transparent; 
+}
+
+.left-arrow {
+    left: 0;
+}
+
+.right-arrow {
+    right: 0;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-container {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.spotify-dark-theme {
+    background-color: #121212; 
+    color: white;
+    min-height: 100vh; 
+    text-align: center; 
+}
+
+.playlist-item a.item-text {
+    position: relative;
+    color: white; /* Fallback color */
+    text-decoration: none;
+    font-family: 'Motserrat', sans-serif;
+    font-size: 1.2em;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    display: inline-block;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+
+    .playlist-item a.item-text:hover {
+        transform: scale(1.1); /* Increase the size of the link */
+    }
+
+.welcome-message h2, .welcome-message h3 {
+    color: #1DB954; /* Spotify green */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.welcome-message h2 {
+    font-weight: 600;
+    margin-bottom: 0.5rem; /* Adjust spacing between welcome message and header */
+}
+
+.welcome-message h3 {
+    text-align: left; /* Aligns "Your Playlists" to the left */
+    margin-left: 70px; /* Adjusts the left margin for alignment, modify as needed */
+    font-weight: 600; /* Adjusts the font weight, if necessary */
 }
