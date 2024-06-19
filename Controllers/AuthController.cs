@@ -54,7 +54,7 @@ namespace SpotifyApp.Controllers
             var spotify = new SpotifyClient(config);
 
             var currentUser = await spotify.UserProfile.Current();
-            ViewBag.UserName = currentUser.DisplayName;
+            HttpContext.Session.SetString("UserName", currentUser.DisplayName);
 
             return RedirectToAction("Profile", "Spotify"); 
         }

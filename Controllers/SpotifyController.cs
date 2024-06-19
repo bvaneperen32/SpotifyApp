@@ -30,15 +30,24 @@ namespace SpotifyApp.Controllers
             var playlists = await _spotifyService.GetPlaylists();
             var recTracks = await _spotifyService.GetRecommendations();
 
-            ViewBag.UserName = currentUser.DisplayName;
+            HttpContext.Session.SetString("Username", currentUser.DisplayName);
+            HttpContext.Session.SetString("ProfileImageUrl", currentUser.Images.FirstOrDefault()?.Url);
 
             var userProfileViewModel = new UserProfileViewModel
             {
                 Playlists = playlists,
-                RecTracks = recTracks
+                RecTracks = recTracks,
+                ProfileImageUrl = currentUser.Images.FirstOrDefault()?.Url,
+                DisplayName = currentUser.DisplayName
             };
 
             return View(userProfileViewModel);
+        }
+
+        public async Task<IActionResult> TopTracks()
+        {
+            var viewModel = await _spotifyService.GetTopTracks();
+            return View(viewModel);
         }
     }
 }

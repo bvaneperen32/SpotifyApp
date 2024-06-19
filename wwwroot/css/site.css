@@ -52,6 +52,11 @@ body {
     padding: 10px 20px;
     background-color: black;
     color: white;
+    position: fixed; /* Make the navbar fixed at the top */
+    top: 0; /* Align the navbar to the top of the viewport */
+    left: 0; /* Align the navbar to the left of the viewport */
+    width: 100%; /* Ensure the navbar spans the full width of the viewport */
+    z-index: 1000; /* Ensure the navbar stays on top of other content */
 }
 
 .navbar-logo img {
@@ -161,7 +166,7 @@ body {
     background-image: url('../Indexbg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 90vh;
+    min-height: 100vh;
     width: 100%
 }
 
@@ -196,7 +201,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 60px; /* Set the height of the footer */
+    height: auto; /* Set the height of the footer */
     line-height: 60px; /* Vertically center the text within the footer */
     background-color: black;
 }
@@ -229,7 +234,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-/*    background-image: url(../images/bg1.jpg)*/
+    margin-top: 60px; 
 }
 
 @keyframes fade-in {
@@ -351,11 +356,13 @@ body {
     color: white;
     min-height: 100vh; 
     text-align: center; 
+    margin-bottom: 40px; 
+    margin-top: 40px; 
 }
 
 .playlist-item a.item-text {
     position: relative;
-    color: white; /* Fallback color */
+    color: white;  
     text-decoration: none;
     font-family: 'Motserrat', sans-serif;
     font-size: 1.2em;
@@ -363,26 +370,63 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     display: inline-block;
     overflow: hidden;
-    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    transition: transform 0.3s ease;  
 }
 
     .playlist-item a.item-text:hover {
-        transform: scale(1.1); /* Increase the size of the link */
+        transform: scale(1.1);  
     }
 
-.welcome-message h2, .welcome-message h3 {
-    color: #1DB954; /* Spotify green */
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 20px;
+}
+
+.welcome-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ensure alignment to the start */
+}
+
+    .welcome-message h2, .welcome-message h3 {
+        margin: 0; /* Reset default margins */
+        padding: 0; /* Reset default padding */
+        color: #1DB954; /* Spotify green */
+        font-family: 'Montserrat', sans-serif;
+        text-align: left; /* Ensures text alignment */
+    }
+
+    .welcome-message h2 {
+        font-size: 2rem; /* Increase font size for "Welcome" */
+        font-weight: 600;
+        margin-bottom: 0.5rem; /* Adjust space between "Welcome" and "Discover" */
+    }
+
+    .welcome-message h3 {
+        font-size: 1.5rem; /* Increase font size for "Discover" */
+        font-weight: 400;
+    }
+
+.profile-picture {
+    width: auto;  
+    height: 200px; 
+    border-radius: 50%;  
+    object-fit: cover;  
+    margin-left: 50px
+}
+
+.profile-username {
+    font-size: 1.5rem; 
+    color: white;  
+    font-weight: bold;  
+}
+
+.playlist-heading {
+    text-align: left;  
+    margin-left: 90px;  
+    font-weight: 600;  
+    color: #1DB954;  
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
-}
-
-.welcome-message h2 {
-    font-weight: 600;
-    margin-bottom: 0.5rem; /* Adjust spacing between welcome message and header */
-}
-
-.welcome-message h3 {
-    text-align: left; /* Aligns "Your Playlists" to the left */
-    margin-left: 70px; /* Adjusts the left margin for alignment, modify as needed */
-    font-weight: 600; /* Adjusts the font weight, if necessary */
 }

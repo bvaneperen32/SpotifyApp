@@ -1,0 +1,36 @@
+﻿@model TopTracksViewModel
+<div class="top-artists-page">
+    <div class="background"></div>
+    <div class="next-background"></div>
+    <h1 class="text-center">Top Artists</h1>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+            @for (int i = 2; i < Model.Tracks.Count; i++)
+            {
+                var track = Model.Tracks[i];
+                <div class="carousel-item transition-background @(i == 2 ? "active" : "")"
+                     data-colors="@string.Join(",", track.DominantColors)">
+                    <div class="topartists-container text-center">
+                        <h2 class="header-artist-details">@(i - 1). @track.Name</h2>
+                        <img src="@track.ImageUrl" alt="@track.Name">
+                        <p class="artist-details">Artist: @track.Artist</p>
+                        <p class="artist-details">Album: @track.Album</p>
+                        <p class="artist-details">Popularity: @track.Popularity</p>
+                        <a href="@track.SongUrl" target="_blank" class="btn btn-primary">Listen on Spotify</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" id="prev-icon" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+        </a>
+
+        <a class="carousel-control-next" id="next-icon" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+        </a>
+        <div style="height: 100px;"></div>
+    </div>
+</div>

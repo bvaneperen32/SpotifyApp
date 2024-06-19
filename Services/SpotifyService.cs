@@ -42,6 +42,31 @@ namespace SpotifyApp.Services
             };
         }
 
+        public async Task<TopTracksViewModel> GetTopTracks()
+        {
+            var topTracks = await _spotify.Personalization.GetTopTracks();
+
+            var tracks = topTracks.Items.Select(track => new Track
+            {
+                Name = track.Name,
+                Artist = track.Artists.FirstOrDefault()?.Name,
+                Album = track.Album.Name,
+                Popularity = track.Popularity,
+                ImageUrl = track.Album.Images.FirstOrDefault()?.Url,
+                SongUrl = track.ExternalUrls["spotify"]
+            }).ToList();
+
+            foreach (var track in tracks)
+            {
+                track.DominantColors = GetDominantColors(track.ImageUrl).Result;
+            }
+
+            return new TopTracksViewModel
+            {
+                Tracks = tracks
+            };
+        }
+
         public async Task<PlaylistsViewModel> GetPlaylists()
         {
             var playlists = await _spotify.Playlists.CurrentUsers();
@@ -119,9 +144,9 @@ namespace SpotifyApp.Services
                     {
                         var colorFrequency = new Dictionary<System.Drawing.Color, int>();
 
-                        for (int x = 0; x < image.Width; x++)
+                        for (int x = 0; x < image.Width; x+= 30)
                         {
-                            for (int y = 0; y < image.Height; y++)
+                            for (int y = 0; y < image.Height; y+= 30)
                             {
                                 System.Drawing.Color originalColor = image.GetPixel(x, y);
                                 // Simplify the color by rounding its RGB components
