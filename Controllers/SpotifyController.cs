@@ -49,5 +49,16 @@ namespace SpotifyApp.Controllers
             var viewModel = await _spotifyService.GetTopTracks();
             return View(viewModel);
         }
+
+        public async Task<IActionResult> Playlist(string playlistId)
+        {
+            if (string.IsNullOrEmpty(playlistId))
+            {
+                return RedirectToAction("Profile");
+            }
+
+            var playlistDetailsViewModel = await _spotifyService.GetPlaylistDetails(playlistId);
+            return View(playlistDetailsViewModel);
+        }
     }
 }

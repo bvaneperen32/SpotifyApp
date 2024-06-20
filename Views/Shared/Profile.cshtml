@@ -23,10 +23,10 @@
             @foreach (var playlist in Model.Playlists.Playlists)
             {
                 <div class="playlist-item">
-                    <a href="@playlist.SpotifyUrl" target="_blank">
+                    <a href="@Url.Action("Playlist", "Spotify", new { playlistId = playlist.Id })">
                         <img src="@playlist.ImageUrl" alt="Playlist Cover">
                     </a>
-                    <a href="@playlist.SpotifyUrl" class="item-text" target="_blank">@playlist.Name</a>
+                    <a href="@Url.Action("Playlist", "Spotify", new { id = playlist.Id })" class="item-text">@playlist.Name</a>
                 </div>
             }
         </div>

@@ -1,10 +1,10 @@
 ﻿namespace SpotifyApp.Models
 {
-    public class Playlist
+    public class PlaylistDetailsViewModel
     {
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string SpotifyUrl { get; set; }
-        public string Id { get; set; }
+        public List<Track> Tracks { get; set; }
     }
 }

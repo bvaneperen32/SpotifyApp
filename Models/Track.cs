@@ -9,5 +9,6 @@
         public List<string> DominantColors { get; set; }
         public string ImageUrl { get; set; }
         public string SongUrl { get; set; }
+        public DateOnly DateAdded { get; set; }
     }
 }

@@ -75,7 +75,8 @@ namespace SpotifyApp.Services
             {
                 Name = playlist.Name,
                 ImageUrl = playlist.Images.FirstOrDefault()?.Url,
-                SpotifyUrl = playlist.ExternalUrls["spotify"]
+                SpotifyUrl = playlist.ExternalUrls["spotify"],
+                Id = playlist.Id
             }).ToList();
 
             return new PlaylistsViewModel
@@ -188,6 +189,52 @@ namespace SpotifyApp.Services
         {
             return await _spotify.UserProfile.Current();
         }
+
+        public async Task<PlaylistDetailsViewModel> GetPlaylistDetails(string playlistId)
+        {
+            try
+            {
+                var playlist = await _spotify.Playlists.Get(playlistId);
+                var tracks = new List<Track>();
+
+                foreach (var item in playlist.Tracks.Items)
+                {
+                    if (item.Track is FullTrack track)
+                    {
+                        tracks.Add(new Track
+                        {
+                            Name = track.Name,
+                            Artist = track.Artists.FirstOrDefault()?.Name,
+                            Album = track.Album.Name,
+                            Popularity = track.Popularity,
+                            ImageUrl = track.Album.Images.FirstOrDefault()?.Url,
+                            SongUrl = track.ExternalUrls["spotify"]
+                        });
+                    }
+                }
+
+                var playlistDetails = new PlaylistDetailsViewModel
+                {
+                    Name = playlist.Name,
+                    ImageUrl = playlist.Images.FirstOrDefault()?.Url,
+                    SpotifyUrl = playlist.ExternalUrls["spotify"],
+                    Tracks = tracks
+                };
+
+                return playlistDetails;
+            }
+            catch (APIException ex)
+            {
+                Console.WriteLine($"Spotify API error: {ex.Message}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return null; 
+            }
+        }
+
 
     }
 

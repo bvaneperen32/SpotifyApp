@@ -430,3 +430,79 @@ body {
     color: #1DB954;  
     font-family: 'Montserrat', sans-serif;
 }
+
+.playlist-theme {
+    background-color: #121212;
+    color: white;
+    min-height: 100vh;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .playlist-theme img {
+        border-radius: 6px;
+    }
+
+    .playlist-theme .list-group-item {
+        background-color: #121212;
+        color: white;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+    }
+
+.playlist-heading-container {
+    display: flex;
+    align-items: flex-end;  
+    height: 100%;  
+}
+
+    .playlist-heading-container h2 {
+        margin-bottom: 0;
+        font-size: 3vw; 
+    }
+
+    .playlist-heading-container img {
+        margin-top: 40px; 
+        border-radius: 10px; 
+    }
+
+.back-to-profile {
+    position: absolute;
+    top: 20px;  
+    left: 20px;  
+    z-index: 1050;  
+    margin-top: 60px;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;  
+    background-color: #121212;  
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .back-button i {
+        font-size: 20px;
+    }
+
+.list-group-item img {
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    display: block; /* Remove any inline spacing */
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Scale images up on hover */
+.list-group-item:hover img {
+    transform: scale(1.3); /* Adjust scale value as needed */
+    z-index: 2; /* Ensure the image is above other content */
+}
